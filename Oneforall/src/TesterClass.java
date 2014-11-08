@@ -26,9 +26,13 @@ public class TesterClass {
 				{27, 28, 29, 30, 31, 32, 0, 39}, {40, 41, 42, 43, 44, 45, 46, 0}};
 		String[] cities8 = new String[]{"Aberdeen", "Bialystok", "Chicago", "Dresden", "Edinburgh", "Frankfurt", "Geneva", "Hamburg"};
 		
+		float[][] cost5_repeatedCity = new float[][]{{0, 10, 9, 17, 7}, {999, 0, 14, 7, 999}, {1, 16, 0, 18, 5},
+				{7, 2, 4, 0, 2}, {1, 999, 999, 13, 0}};
+		String[] cities5_repeatedCity = new String[]{"Aberdeen", "Bialystok", "Chicago", "Dresden", "Aberdeen"};
+		
 		long startTime = System.nanoTime();
 		
-		ToTheStars.DepthFirstSearch(cities7, cost7);
+		ToTheStars.DepthFirstSearch(cities5_repeatedCity, cost5_repeatedCity);
 		ToTheStars.printAllResults();
 		
 		long endTime = System.nanoTime();
