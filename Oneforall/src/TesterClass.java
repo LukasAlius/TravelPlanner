@@ -32,7 +32,7 @@ public class TesterClass {
 		ToTheStars.printAllResults();
 		
 		long endTime = System.nanoTime();
-		System.out.println("Took "+1.0*(endTime - startTime)/1000000000 + " s"); 
+		System.out.println("Took "+(endTime - startTime)/1000000000.0 + " s"); 
 	}
 	
 }

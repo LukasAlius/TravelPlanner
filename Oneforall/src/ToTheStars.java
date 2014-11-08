@@ -73,10 +73,13 @@ public class ToTheStars {
 			System.out.println("No results today, sry -_-");
 		}
 		else {
+			int i = 0;
 			for (Route r : results) {
 				System.out.print(r.testOutput());
 				System.out.println("   In total: " + r.getTotal());
+				i++;
 			}
+			System.out.println("total number of outputs: " + i);
 		}
 	}
 }
