@@ -7,13 +7,13 @@
   <display-name></display-name>	
   
   <servlet>
-      <servlet-name>HelloWorld</servlet-name>
-      <servlet-class>HelloWorld</servlet-class>
+      <servlet-name>mainservlet</servlet-name>
+      <servlet-class>ofservlet</servlet-class>
    </servlet>
    
   <servlet-mapping>
-      <servlet-name>HelloWorld</servlet-name>
-      <url-pattern>/test</url-pattern>
+      <servlet-name>mainservlet</servlet-name>
+      <url-pattern>/q</url-pattern>
    </servlet-mapping>
    
   <welcome-file-list>

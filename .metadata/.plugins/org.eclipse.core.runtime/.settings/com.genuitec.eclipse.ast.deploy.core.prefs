@@ -1,0 +1,14 @@
+#Sat Nov 08 15:04:58 GMT 2014
+tomcat6Server.Oneforall.shouldBackup=true
+tomcat6Server.Oneforall.isExploded=true
+tomcat6Server.Oneforall.IEARProjectName=
+tomcat6Server.Oneforall.isUptoDate=true
+tomcat6Server.Oneforall.contextRoot=/Oneforall
+tomcat6Server.Oneforall.deployIsOverProject=false
+tomcat6Server.Oneforall.isDeployed=true
+tomcat6Server.Oneforall.type=WebDeployment
+tomcat6Server.Oneforall.deploymentPath=D\:\\Program Files\\Tomcat6\\apache-tomcat-6.0.32\\webapps\\Oneforall
+tomcat6Server.Oneforall.shouldOverwrite=false
+tomcat6Server.Oneforall.noFileCopy=false
+eclipse.preferences.version=1
+tomcat6Server.Oneforall.altContextRoot=
