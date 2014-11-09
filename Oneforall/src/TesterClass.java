@@ -1,7 +1,13 @@
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 
 public class TesterClass {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
+		
+		/*
 		float[][] cost3 = new float[][]{{0, 10, 9}, {0, 0, 14}, {1, 16, 0}};
 		String[] cities3 = new String[]{"Aberdeen", "Bialystok", "Chicago"};
 		
@@ -30,13 +36,34 @@ public class TesterClass {
 				{7, 2, 4, 0, 2}, {1, 999, 999, 13, 0}};
 		String[] cities5_repeatedCity = new String[]{"Aberdeen", "Bialystok", "Chicago", "Dresden", "Aberdeen"};
 		
+		// All of these tests won't work unless proper departure_date matrixes are created.
+		*/
+		
+		float[][] cost3 = new float[][]{{0, 10, 9}, {0, 0, 14}, {1, 16, 0}};
+		String[] cities3 = new String[]{"Aberdeen", "Bialystok", "Chicago"};
+		String[][] departure_dates3 = new String[][]{{"0", "2014-11-08 00:00:00", "2014-11-08 00:00:00"},
+													 {"2014-12-08 00:00:00", "0", "2014-12-08 00:00:00"},
+													 {"2015-01-08 00:00:00", "2015-01-08 00:00:00", "0"}};
+		
 		long startTime = System.nanoTime();
 		
-		ToTheStars.DepthFirstSearch(cities5_repeatedCity, cost5_repeatedCity);
+		ToTheStars.DepthFirstSearch(cities3, cost3, departure_dates3, "2014-10-08 00:00:00");
 		ToTheStars.printAllResults();
 		
 		long endTime = System.nanoTime();
 		System.out.println("Took "+(endTime - startTime)/1000000000.0 + " s"); 
+		
+		String date_test1 = "2014-11-08 01:00:00";
+		
+		/*
+		try {
+			System.out.println(ToTheStars.parseTime(date_test1));
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		*/
+		
+
 	}
 	
 }
