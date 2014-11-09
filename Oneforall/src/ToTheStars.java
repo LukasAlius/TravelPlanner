@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class ToTheStars {
 
-	public static final long FLIGHT_TIME = 86400000L; // (1000 * 60 * 60 * 24);
+	public static final long FLIGHT_TIME = 86400000L/10; // (1000 * 60 * 60 * 24);
 
 	private static ArrayList<Route> results = new ArrayList<Route>();
 
@@ -46,8 +46,10 @@ public class ToTheStars {
 		visited0[0] = true;
 		ArrayList<Integer> cityTrace0 = new ArrayList<Integer>(cities.length);
 		cityTrace0.add(0);
+		ArrayList<Integer> depthTrace0 = new ArrayList<Integer>(cities.length);
+		depthTrace0.add(0);
 		Stack<GraphNode> stack = new Stack<GraphNode>();
-		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date, 0));
+		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date, depthTrace0));
 		while (!stack.empty()) {
 			GraphNode n = stack.pop();
 			if (n.getPos() == cities.length - 1) {
@@ -66,8 +68,10 @@ public class ToTheStars {
 					long dep_time_long;
 					dep_time_long = parseTime(departure_dates[n.getPos()][i]).getTime();
 					String new_date = dateToString(new Date(dep_time_long + FLIGHT_TIME));
+					ArrayList<Integer> new_depthTrace = (ArrayList<Integer>) n.getDepthTrace().clone();
+					new_depthTrace.add(0);
 					stack.push(new GraphNode(i, new_visited, n.getValue() + cost[n.getPos()][i], new_cityTrace,
-							new_date, 0));
+							new_date, new_depthTrace));
 				}
 			}
 		}
@@ -84,14 +88,16 @@ public class ToTheStars {
 		boolean[] visited0 = new boolean[cities.length];
 		visited0[0] = true;
 		ArrayList<Integer> cityTrace0 = new ArrayList<Integer>(cities.length);
+		ArrayList<Integer> depthTrace0 = new ArrayList<Integer>(cities.length);
 		cityTrace0.add(0);
+		depthTrace0.add(0);
 		Stack<GraphNode> stack = new Stack<GraphNode>();
-		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date, 0));
+		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date, depthTrace0));
 		while (!stack.empty()) {
 			GraphNode n = stack.pop();
 			if (n.getPos() == cities.length - 1) {
 				if (allVisited(n.getVisited())) {
-					parseResult3D(n, cities, cost, n.getDepth());
+					parseResult3D(n, cities, cost);
 				} else
 					continue;
 			}
@@ -106,14 +112,16 @@ public class ToTheStars {
 						long dep_time_long;
 						dep_time_long = parseTime(departure_dates[depth][n.getPos()][i]).getTime();
 						String new_date = dateToString(new Date(dep_time_long + FLIGHT_TIME));
-						stack.push(new GraphNode(i, new_visited, n.getValue() + cost[depth][n.getPos()][i], new_cityTrace, new_date, depth));
+						ArrayList<Integer> new_depthTrace = (ArrayList<Integer>) n.getDepthTrace().clone();
+						new_depthTrace.add(depth);
+						stack.push(new GraphNode(i, new_visited, n.getValue() + cost[depth][n.getPos()][i], new_cityTrace, new_date, new_depthTrace));
 					}
 				}
 			}
 		}
 	}
 
-	private static void parseResult3D(GraphNode n, String[] cities, float[][][] cost, int depth) {
+	private static void parseResult3D(GraphNode n, String[] cities, float[][][] cost) {
 		String[] cityNames = new String[cities.length];
 		float[] cityValues = new float[cities.length - 1];
 		int city1_index, city0_index;
@@ -122,7 +130,7 @@ public class ToTheStars {
 			cityNames[i] = cities[city1_index];
 			if (i != 0) {
 				city0_index = n.getCityTrace().get(i - 1);
-				cityValues[i - 1] = cost[depth][city0_index][city1_index];
+				cityValues[i - 1] = cost[n.getDepthTrace().get(i)][city0_index][city1_index];
 			}
 		}
 		results.add(new Route(cityNames, cityValues));

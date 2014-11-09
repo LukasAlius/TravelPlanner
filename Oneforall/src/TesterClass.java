@@ -62,9 +62,12 @@ public class TesterClass {
 													 {"2015-01-08 00:00:00", "2015-01-08 00:00:00", "0"}};
 		
 		// for 3D model
-		float[][][] cost3_3D = new float[][][]{{{0, 10, 19}, {13, 0, 22}, {16, 25, 0}},
+		float[][][] cost3_3D_5days = new float[][][]{{{0, 10, 19}, {13, 0, 22}, {16, 25, 0}},
 											   {{0, 11, 20}, {14, 0, 23}, {17, 26, 0}},
-											   {{0, 12, 21}, {15, 0, 24}, {18, 27, 0}}};
+											   {{0, 12, 21}, {15, 0, 24}, {18, 27, 0}},
+											   {{0, 30, 36}, {32, 0, 38}, {34, 40, 0}},
+											   {{0, 31, 37}, {33, 0, 39}, {35, 41, 0}}};
+		
 		String[] cities3_3D = new String[]{"Aberdeen", "Bialystok", "Chicago"};
 		String[][][] departure_dates3_3D_5Days = new String[][][]{{{"0", "2014-11-08 00:00:00", "2014-11-08 00:00:00"},
 				 									      		   {"2014-11-08 10:00:00", "0", "2014-11-08 10:00:00"},
@@ -86,7 +89,7 @@ public class TesterClass {
 		long startTime = System.nanoTime();
 		
 		// ToTheStars.DepthFirstSearch(cities3, cost3, departure_dates3, "2014-10-08 00:00:00");
-		ToTheStars.DepthFirstSearch3D(cities3_3D, cost3_3D, departure_dates3_3D_5Days, "2014-10-08 00:00:00");
+		ToTheStars.DepthFirstSearch3D(cities3_3D, cost3_3D_5days, departure_dates3_3D_5Days, "2014-10-08 00:00:00");
 		ToTheStars.printAllResults();
 		
 		long endTime = System.nanoTime();
