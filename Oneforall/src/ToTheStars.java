@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class ToTheStars {
 
-	public static final long FLIGHT_TIME = -200000*86400000L; // (1000 * 60 * 60 * 24);
+	public static final long FLIGHT_TIME = 86400000L; // (1000 * 60 * 60 * 24);
 
 	private static ArrayList<Route> results = new ArrayList<Route>();
 
@@ -39,7 +39,7 @@ public class ToTheStars {
 			GraphNode n = stack.pop();
 			if (n.getPos() == cities.length - 1) {
 				if (allVisited(n.getVisited())) {
-					parseResult3D(n, cities, cost);
+					parseResult3D(n, cities, cost, departure_dates);
 				} else
 					continue;
 			}
@@ -63,9 +63,10 @@ public class ToTheStars {
 		}
 	}
 
-	private static void parseResult3D(GraphNode n, String[] cities, float[][][] cost) {
+	private static void parseResult3D(GraphNode n, String[] cities, float[][][] cost, String[][][] departure_dates) {
 		String[] cityNames = new String[cities.length];
 		float[] cityValues = new float[cities.length - 1];
+		String[] dateList = new String[cities.length - 1];
 		int city1_index, city0_index;
 		for (int i = 0; i < cities.length; i++) {
 			city1_index = n.getCityTrace().get(i);
@@ -73,9 +74,10 @@ public class ToTheStars {
 			if (i != 0) {
 				city0_index = n.getCityTrace().get(i - 1);
 				cityValues[i - 1] = cost[n.getDepthTrace().get(i)][city0_index][city1_index];
+				dateList[i - 1] = departure_dates[n.getDepthTrace().get(i)][city0_index][city1_index];
 			}
 		}
-		results.add(new Route(cityNames, cityValues));
+		results.add(new Route(cityNames, cityValues, dateList));
 	}
 
 	public static ArrayList<Route> getResults() {
