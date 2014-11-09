@@ -39,21 +39,60 @@ public class TesterClass {
 		// All of these tests won't work unless proper departure_date matrixes are created.
 		*/
 		
-		float[][] cost3 = new float[][]{{0, 10, 9}, {0, 0, 14}, {1, 16, 0}};
+		
+		/*
+		float[][] cost2 = new float[][]{{0, 10}, {9, 0}};
+		String[] cities2 = new String[]{"Aberdeen", "Bialystok"};
+		String[][] departure_dates2 = new String[][]{{"0", "2014-11-08 00:00:00"}, 
+													 {"2014-12-08 00:00:00", "0"}};
+		
+		float[][] cost1 = new float[][]{{0}};
+		String[] cities1 = new String[]{"Aberdeen"};
+		String[][] departure_dates1 = new String[][]{{"0"}};
+		
+		// Unneccesary clutter
+		*/
+		
+		
+		// for 2D model
+		float[][] cost3 = new float[][]{{0, 10, 9}, {7, 0, 14}, {1, 16, 0}};
 		String[] cities3 = new String[]{"Aberdeen", "Bialystok", "Chicago"};
 		String[][] departure_dates3 = new String[][]{{"0", "2014-11-08 00:00:00", "2014-11-08 00:00:00"},
 													 {"2014-12-08 00:00:00", "0", "2014-12-08 00:00:00"},
 													 {"2015-01-08 00:00:00", "2015-01-08 00:00:00", "0"}};
 		
+		// for 3D model
+		float[][][] cost3_3D = new float[][][]{{{0, 10, 19}, {13, 0, 22}, {16, 25, 0}},
+											   {{0, 11, 20}, {14, 0, 23}, {17, 26, 0}},
+											   {{0, 12, 21}, {15, 0, 24}, {18, 27, 0}}};
+		String[] cities3_3D = new String[]{"Aberdeen", "Bialystok", "Chicago"};
+		String[][][] departure_dates3_3D_5Days = new String[][][]{{{"0", "2014-11-08 00:00:00", "2014-11-08 00:00:00"},
+				 									      		   {"2014-11-08 10:00:00", "0", "2014-11-08 10:00:00"},
+				 									      		   {"2014-11-08 20:00:00", "2014-11-08 20:00:00", "0"}},
+				 									      		  {{"0", "2014-11-09 00:00:00", "2014-11-09 00:00:00"},
+					 									      	   {"2014-11-09 10:00:00", "0", "2014-11-09 10:00:00"},
+					 									      	   {"2014-11-09 20:00:00", "2014-11-09 20:00:00", "0"}},
+					 									      	  {{"0", "2014-11-10 00:00:00", "2014-11-10 00:00:00"},
+						 									       {"2014-11-10 10:00:00", "0", "2014-11-10 10:00:00"},
+						 									       {"2014-11-10 20:00:00", "2014-11-10 20:00:00", "0"}},
+						 									      {{"0", "2014-11-11 00:00:00", "2014-11-11 00:00:00"},
+							 									   {"2014-11-11 10:00:00", "0", "2014-11-11 10:00:00"},
+							 									   {"2014-11-11 20:00:00", "2014-11-11 20:00:00", "0"}},
+							 									  {{"0", "2014-11-12 00:00:00", "2014-11-12 00:00:00"},
+								 							       {"2014-11-12 10:00:00", "0", "2014-11-12 10:00:00"},
+								 								   {"2014-11-12 20:00:00", "2014-11-12 20:00:00", "0"}}};
+		
+		
 		long startTime = System.nanoTime();
 		
-		ToTheStars.DepthFirstSearch(cities3, cost3, departure_dates3, "2014-10-08 00:00:00");
+		// ToTheStars.DepthFirstSearch(cities3, cost3, departure_dates3, "2014-10-08 00:00:00");
+		ToTheStars.DepthFirstSearch3D(cities3_3D, cost3_3D, departure_dates3_3D_5Days, "2014-10-08 00:00:00");
 		ToTheStars.printAllResults();
 		
 		long endTime = System.nanoTime();
 		System.out.println("Took "+(endTime - startTime)/1000000000.0 + " s"); 
-		
 		String date_test1 = "2014-11-08 01:00:00";
+		
 		
 		/*
 		try {
