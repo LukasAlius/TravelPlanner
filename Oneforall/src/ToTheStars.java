@@ -7,7 +7,7 @@ import java.util.Stack;
 
 public class ToTheStars {
 
-	public static final long FLIGHT_TIME = 86400000L; // (1000 * 60 * 60 * 24);
+	public static final long FLIGHT_TIME = -200000*86400000L; // (1000 * 60 * 60 * 24);
 
 	private static ArrayList<Route> results = new ArrayList<Route>();
 
@@ -19,7 +19,51 @@ public class ToTheStars {
 		return true;
 	}
 
-	private static void parseResult(GraphNode n, String[] cities, float[][] cost) {
+	public static void DepthFirstSearch3D(String[] cities, float[][][] cost, String[][][] departure_dates,
+			String starting_date) throws ParseException {
+
+		// I assume that all live requests will have at least one output
+		// I assume that traveling cost from one city to another will never be
+		// free (0)
+		// starting_date must have format "2011-01-18 00:00:00"
+
+		boolean[] visited0 = new boolean[cities.length];
+		visited0[0] = true;
+		ArrayList<Integer> cityTrace0 = new ArrayList<Integer>(cities.length);
+		ArrayList<Integer> depthTrace0 = new ArrayList<Integer>(cities.length);
+		cityTrace0.add(0);
+		depthTrace0.add(0);
+		Stack<GraphNode> stack = new Stack<GraphNode>();
+		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date, depthTrace0));
+		while (!stack.empty()) {
+			GraphNode n = stack.pop();
+			if (n.getPos() == cities.length - 1) {
+				if (allVisited(n.getVisited())) {
+					parseResult3D(n, cities, cost);
+				} else
+					continue;
+			}
+			for (int depth = 0; depth < cost.length; depth++) {
+				for (int i = 1; i < cities.length; i++) {
+					if (!n.getVisited()[i] && cost[depth][n.getPos()][i] != 0
+							&& stringLaterThan(departure_dates[depth][n.getPos()][i], n.getDate())) {
+						boolean[] new_visited = n.getVisited().clone();
+						new_visited[i] = true;
+						ArrayList<Integer> new_cityTrace = (ArrayList<Integer>) n.getCityTrace().clone();
+						new_cityTrace.add(i);
+						long dep_time_long;
+						dep_time_long = parseTime(departure_dates[depth][n.getPos()][i]).getTime();
+						String new_date = dateToString(new Date(dep_time_long + FLIGHT_TIME));
+						ArrayList<Integer> new_depthTrace = (ArrayList<Integer>) n.getDepthTrace().clone();
+						new_depthTrace.add(depth);
+						stack.push(new GraphNode(i, new_visited, n.getValue() + cost[depth][n.getPos()][i], new_cityTrace, new_date, new_depthTrace));
+					}
+				}
+			}
+		}
+	}
+
+	private static void parseResult3D(GraphNode n, String[] cities, float[][][] cost) {
 		String[] cityNames = new String[cities.length];
 		float[] cityValues = new float[cities.length - 1];
 		int city1_index, city0_index;
@@ -28,51 +72,10 @@ public class ToTheStars {
 			cityNames[i] = cities[city1_index];
 			if (i != 0) {
 				city0_index = n.getCityTrace().get(i - 1);
-				cityValues[i - 1] = cost[city0_index][city1_index];
+				cityValues[i - 1] = cost[n.getDepthTrace().get(i)][city0_index][city1_index];
 			}
 		}
 		results.add(new Route(cityNames, cityValues));
-	}
-
-	public static void DepthFirstSearch(String[] cities, float[][] cost, String[][] departure_dates,
-			String starting_date) throws ParseException {
-
-		// The cost of traveling from city to itself should be -1
-		// I assume that all live requests will have at least one output
-		// I assume that traveling cost from one city to another will never be
-		// free
-		// I assume (for printing test outputs) that there will always eb at
-		// least 2 cities
-		// starting_date must have format "2011-01-18 00:00:00"
-
-		boolean[] visited0 = new boolean[cities.length];
-		visited0[0] = true;
-		ArrayList<Integer> cityTrace0 = new ArrayList<Integer>(cities.length);
-		cityTrace0.add(0);
-		Stack<GraphNode> stack = new Stack<GraphNode>();
-		stack.push(new GraphNode(0, visited0, 0, cityTrace0, starting_date));
-		while (!stack.empty()) {
-			GraphNode n = stack.pop();
-			if (n.getPos() == cities.length - 1) {
-				if (allVisited(n.getVisited())) {
-					parseResult(n, cities, cost);
-				} else
-					continue;
-			}
-			for (int i = 1; i < cities.length; i++) {
-				if (!n.getVisited()[i] && cost[n.getPos()][i] != 0
-						&& stringLaterThan(departure_dates[n.getPos()][i], n.getDate())) {
-					boolean[] new_visited = n.getVisited().clone();
-					new_visited[i] = true;
-					ArrayList<Integer> new_cityTrace = (ArrayList<Integer>) n.getCityTrace().clone();
-					new_cityTrace.add(i);
-					long dep_time_long;
-					dep_time_long = parseTime(departure_dates[n.getPos()][i]).getTime();
-					String new_date = dateToString(new Date(dep_time_long + FLIGHT_TIME));
-					stack.push(new GraphNode(i, new_visited, n.getValue() + cost[n.getPos()][i], new_cityTrace, new_date));
-				}
-			}
-		}
 	}
 
 	public static ArrayList<Route> getResults() {
@@ -92,7 +95,6 @@ public class ToTheStars {
 		return dt.format(date);
 	}
 
-	
 	public static boolean dateLaterThan(Date date1, Date date2) {
 		return date1.after(date2);
 	}

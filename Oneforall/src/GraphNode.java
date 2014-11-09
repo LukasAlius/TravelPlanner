@@ -8,13 +8,15 @@ public class GraphNode {
 	private float value;
 	private ArrayList<Integer> cityTrace;
 	private String currentDate;
+	private ArrayList<Integer> depthTrace;
 	
-	public GraphNode(int pos, boolean[] visited, float value, ArrayList<Integer> cityTrace, String currentDate) {
+	public GraphNode(int pos, boolean[] visited, float value, ArrayList<Integer> cityTrace, String currentDate, ArrayList<Integer> depthTrace) {
 		this.pos = pos;
 		this.visited = visited;
 		this.value = value;
 		this.cityTrace = cityTrace;
 		this.currentDate = currentDate;
+		this.depthTrace = depthTrace;
 	}
 
 	public int getPos() {
@@ -35,6 +37,10 @@ public class GraphNode {
 	
 	public String getDate() {
 		return currentDate;
+	}
+	
+	public ArrayList<Integer> getDepthTrace() {
+		return depthTrace;
 	}
 	
 	// TODO: remove this method      <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
