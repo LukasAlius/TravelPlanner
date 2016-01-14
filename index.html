@@ -1,0 +1,283 @@
+<!DOCTYPE HTML>
+
+<html>
+	<head>
+		<title>Travel Planner</title>
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<meta name="description" content="" />
+		<meta name="keywords" content="" />
+		<!--[if lte IE 8]><script src="css/ie/html5shiv.js"></script><![endif]-->
+		<!--<script src="js/jquery.min.js"></script>-->
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+        <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.9.1/jquery-ui.min.js"></script>
+		<script src="js/jquery.scrollzer.min.js"></script>
+		<script src="js/jquery.scrolly.min.js"></script>
+
+        
+		<script src="js/skel.min.js"></script>
+		<script src="js/skel-layers.min.js"></script>
+		<script src="js/init.js"></script>
+        <!--<link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">-->
+        
+		<noscript>
+			<link rel="stylesheet" href="css/skel.css" />
+			<link rel="stylesheet" href="css/style.css" />
+			<link rel="stylesheet" href="css/style-xlarge.css" />
+		</noscript>
+		<!--[if lte IE 8]><link rel="stylesheet" href="css/ie/v8.css" /><![endif]-->
+        
+        
+        <!-- script for datepicker -->
+        <script type="text/javascript">
+            var datefield=document.createElement("input")
+            datefield.setAttribute("type", "date")
+            if (datefield.type!="date"){ //if browser doesn't support input type="date", load files for jQuery UI Date Picker
+                document.write('<link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css" />\n')
+                document.write('<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"><\/script>\n')
+                document.write('<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"><\/script>\n')
+            }
+        </script>
+ 
+        <script>
+            if (datefield.type!="date"){ //if browser doesn't support input type="date", initialize date picker widget:
+            jQuery(function($){ //on document.ready
+                $('#birthday').datepicker();
+            })
+            }
+        </script>
+
+        
+        <!-- Script for Drop list -->
+        
+        
+        
+        <script >
+            $(document).ready(function() {
+            var lol = $('#subject');
+            lol.keyup(function() {
+                if (lol.val().length >= 2){
+                   // alert('http://partners.api.skyscanner.net/apiservices/autosuggest/v1.0/GB/GBP/en-GB?query='+lol.val() +'&apiKey=prtl6749387986743898559646983194');
+                    jsonp('http://partners.api.skyscanner.net/apiservices/xd/autosuggest/v1.0/GB/GBP/en-GB?query='+lol.val() +'&apiKey=prtl6749387986743898559646983194', function(data) {
+    //console.log(data.Places[0].PlaceName);   
+    //var i = 0;
+    //var len = data.Places.length;
+    //var cities
+    //for(i; i<=len; i++){
+        
+        $('#ListOfCities').empty();
+                        
+        $(data.Places).each(function(idx, o) {
+            
+            cityOption = "<option value=\"" + this.PlaceName + "\"></option>";
+            $('#ListOfCities').append(cityOption);
+        });
+        
+        //cities = "<option value=\"" + data.Places[i].PlaceName + "\></option>";
+        //$('#ListOfCities').append(cities);
+        
+      //  console.log(i+' '+data.Places[i].PlaceName);
+    //}
+});                 
+                }
+            });            
+        });
+        </script>        
+        
+	</head>
+	<body>
+		<div id="wrapper">
+
+			<!-- Header -->
+				<section id="header" class="skel-layers-fixed">
+					<header>
+						<span class="image avatar"><img src="images/avatar.png" alt="" /></span>
+						<h1 id="logo"><a href="#">Travel Planner</a></h1>
+						<p>Plan your trip with ease</p>
+					</header>
+					<nav id="nav">
+						<ul>
+							<li><a href="#four" class="active">Plan a trip</a></li>
+							<li><a href="">About</a></li>
+							<!--<li><a href="#three">A Few Accomplishments</a></li>
+							<li><a href="#four">Contact</a></li>-->
+						</ul>
+					</nav>
+					<footer>
+						<!--<ul class="icons">
+							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+							<li><a href="#" class="icon fa-instagram"><span class="label">Instagram</span></a></li>
+							<li><a href="#" class="icon fa-github"><span class="label">Github</span></a></li>
+							<li><a href="#" class="icon fa-envelope"><span class="label">Email</span></a></li>
+						</ul>-->
+					</footer>
+				</section>
+
+			<!-- Main -->
+				<div id="main">
+                    
+					<!-- One 
+						<section id="one">
+							<div class="container">
+								<header class="major">
+									<h2>Read Only</h2>
+									<p>Just an incredibly simple responsive site<br />
+									template freebie by <a href="http://html5up.net">HTML5 UP</a>.</p>
+								</header>
+								<p>Faucibus sed lobortis aliquam lorem blandit. Lorem eu nunc metus col. Commodo id in arcu ante lorem ipsum sed accumsan erat praesent faucibus commodo ac mi lacus. Adipiscing mi ac commodo. Vis aliquet tortor ultricies non ante erat nunc integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum.</p>
+							</div>
+						</section>
+						
+					<!-- Two 
+						<section id="two">
+							<div class="container">
+								<h3>Things I Can Do</h3>
+								<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer lorem ipsum dolor sit amet.</p>
+								<ul class="feature-icons">
+									<li class="fa-code">Write all the code</li>
+									<li class="fa-cubes">Stack small boxes</li>
+									<li class="fa-book">Read books and stuff</li>
+									<li class="fa-coffee">Drink much coffee</li>
+									<li class="fa-bolt">Lightning bolt</li>
+									<li class="fa-users">Shadow clone technique</li>
+								</ul>
+							</div>
+						</section>
+						
+					<!-- Three 
+						<section id="three">
+							<div class="container">
+								<h3>A Few Accomplishments</h3>
+								<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer non. Adipiscing cubilia elementum integer. Integer eu ante ornare amet commetus.</p>
+								<div class="features">
+									<article>
+										<a href="#" class="image"><img src="images/pic01.jpg" alt="" /></a>
+										<div class="inner">
+											<h4>Possibly broke spacetime</h4>
+											<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+										</div>
+									</article>
+									<article>
+										<a href="#" class="image"><img src="images/pic02.jpg" alt="" /></a>
+										<div class="inner">
+											<h4>Terraformed a small moon</h4>
+											<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+										</div>
+									</article>
+									<article>
+										<a href="#" class="image"><img src="images/pic03.jpg" alt="" /></a>
+										<div class="inner">
+											<h4>Snapped dark matter in the wild</h4>
+											<p>Integer eu ante ornare amet commetus vestibulum blandit integer in curae ac faucibus integer adipiscing ornare amet.</p>
+										</div>
+									</article>
+								</div>
+							</div>
+						</section>
+					-->	
+                    
+					<!-- Four -->
+						<section id="four">
+							<div class="container">
+								<!--<h3>Travel Planner</h3>-->
+								<!--<p>Type where you want to go!</p> -->
+								<form method="post" action="background.php">
+									<!--<div class="row uniform">
+										<div class="6u 12u(3)"><input type="text" name="name" id="name" placeholder="Start date" /></div>
+										<div class="6u 12u(3)"><input type="email" name="email" id="email" placeholder="Finish date" /></div>
+									</div>-->
+                                    <div class="row uniform">
+										<div class="12u"><input type="text" name="subject" id="subject" autocomplete="off" placeholder="I am from ..." maxlength="20" list="ListOfCities" />
+                                            <datalist id="ListOfCities">
+                                                <option value="Edinburgh"/>
+                                                <option value="Edinburg"/>
+                                                <option value="Edinburh"/>
+                                                <option value="Edinbugh"/>
+                                                <option value="Edinbrgh"/>
+                                                <option value="Edinurgh"/>
+                                                <option value="Ediburgh"/>
+                                                <option value="London"/>
+                                                <option value="St. Andrew"/>
+                                                <option value="Paris"/>
+                                                <option value="Vilnius"/>
+                                            </datalist>                                                                                                         
+                                        </div>
+                                        <div>
+                                            <p id="output"></p>
+                                        </div> 
+									</div>
+                                   
+                                    
+									
+									
+                                    
+                                    <div class="row uniform">
+										<div class="12u"><input type="number" name="budget" id="budget" placeholder="My budget ..." max="100000" /></div>
+									</div>
+                                    
+                                    <div class="row uniform">
+										<div class="6u 12u(3)"><p>Start date</p></div>
+										<div class="6u 12u(3)"><p>End date</p></div>
+									</div>
+                                    <div class="row uniform">
+										<div class="6u 12u(3)"><input type="date" name="startDate" id="startDate" placeholder="Start date" /></div>
+										<div class="6u 12u(3)"><input type="date" name="finishDate" id="finishDate" placeholder="Finish date" /></div>
+									</div>
+                                    
+                                    <div class="row uniform">
+										<div class="12u"><textarea name="cities" id="cities" placeholder="Cities you want to go" rows="6"></textarea></div>
+									</div>
+                                    
+                                    <div class="row uniform">
+										<div class="12u"><input type="text" name="dest" id="dest" autocomplete="off" placeholder="Add destination..." maxlength="20" list="ListOfCities" /></div>
+                                    
+									</div>
+                                    <div class="row uniform">
+										<div class="12u">
+											<ul class="actions">
+												<!--<li><input id="submit" type="submit" class="special" src="images/search.png" value="Plan it"/></li>-->
+                                                <li><button id="reset" type="reset"><i class="fa fa-plus-square"></i> Add</button></li>    
+												<!--<li><input type="reset" value="Reset" /></li>-->
+											</ul>
+										</div>
+									</div>
+                                    
+                                    
+									<div class="row uniform">
+										<div class="12u">
+											<ul class="actions">
+												<!--<li><input id="submit" type="submit" class="special" src="images/search.png" value="Plan it"/></li>-->
+                                                <li><button id="submit" type="submit" class="special"><i class="fa fa-search"></i> Plan it</button></li>
+                                                <li><button id="reset" type="reset"><i class="fa fa-times"></i>  Reset</button></li>    
+												<!--<li><input type="reset" value="Reset" /></li>-->
+											</ul>
+										</div>
+									</div>
+								</form>
+							</div>
+						</section>
+			
+		</div>
+	</body>
+    
+    <script>
+function jsonp(url, callback) {
+    var callbackName = 'jsonp_callback_' + Math.round(100000 * Math.random());
+    window[callbackName] = function(data) {
+        delete window[callbackName];
+        document.body.removeChild(script);
+        callback(data);
+    };
+
+    var script = document.createElement('script');
+    script.src = url + (url.indexOf('?') >= 0 ? '&' : '?') + 'callback=' + callbackName;
+    document.body.appendChild(script);
+}
+
+//xmlhttp.open("GET","http://partners.api.skyscanner.net/apiservices/xd/autosuggest/v1.0/GB/GBP/en-GB/?query=ed&apikey=ilw29452009038930763264257971366",false);
+
+
+//xmlhttp.open("GET","http://partners.api.skyscanner.net/apiservices/xd/autosuggest/v1.0/GB/GBP/en-GB/?query=ed&apikey=ilw29452009038930763264257971366",false);
+</script>
+    
+</html>
